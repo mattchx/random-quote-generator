@@ -14,36 +14,37 @@ class App extends Component {
   }
 
   // set state needs to been done on a single line as this function is asynchronous
-  componentDidMount() { 
+  componentDidMount() {
     fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
       .then(data => data.json())
       .then(quotes => this.setState({ quotes }, () => {
-        this.setState({selectQuoteIndex: this.selectQuoteIndex() })
+        this.setState({ selectedQuoteIndex: this.selectQuoteIndex() })
       })); //quotes:quotes object array 
-  } 
+  }
 
-//get SelectedQuote () { // can call this function as if it were a variable
- // if (!this.state.quotes.length || !Number.isInteger(this.state.quotes.length)){
-  //  return undefined;
- // }
-  // returning the quote at the desired index
- // return this.state.quotes[this.state.selectedQuoteIndex];
-//}
+  get selectedQuote() { // can call this function as if it were a variable
+    if (!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex)) {
+      return;
+    }
+    return this.state.quotes[this.state.selectedQuoteIndex];
+  } //returning the quote at the desired index
 
   selectQuoteIndex() {
-      if (!this.state.quotes.length) {
-        return; // undefined
-      }
-      return Math.floor(Math.random() * this.state.quotes.length-1) + 1;
+    if (!this.state.quotes.length) {
+      return; // undefined
+    }
+    return Math.floor(Math.random() * this.state.quotes.length - 1) + 1;
   }
 
   // render is run once state is updated
-  render() { 
-    //console.log(this.state.selectQuoteIndex)
+  render() {
+    console.log(this.state.selectedQuoteIndex);
+    console.log(this.state.quotes);
     return (
       <div className="App" id="quote-box">
-        {/*this.selectedQuote.quote? this.state.selectedQuote.quote : ''*/}
-        <Button diplayButtonName="Click me" clickHandler={this.nextQuoteClickHandler} />
+        { /* uses the quote and author keys from the array*/}
+        {this.selectedQuote ? this.selectedQuote.quote : ''}
+        <Button buttonDisplayName="Click me" clickHandler={this.nextQuoteClickHandler} />
       </div>
     );
   }
