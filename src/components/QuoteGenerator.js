@@ -13,7 +13,7 @@ import {faTwitter} from '@fortawesome/free-brands-svg-icons';
 // *Object destructuring* props -> {assignNewQuoteIndex, selectedQuote}
 // the argument props no longer has to be explicitly typed
 const QuoteGenerator = ({assignNewQuoteIndex, selectedQuote}) => (
-    <Card>
+    <Card style={{backgroundColor:'rgb(227, 228, 151)'}}>
         <CardContent>
             {
                 selectedQuote ?
